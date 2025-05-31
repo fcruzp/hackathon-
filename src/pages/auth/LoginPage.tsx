@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuthStore } from '../../stores/auth-store';
 import { useLanguageStore } from '../../stores/language-store';
+import { useThemeStore } from '../../stores/theme-store';
 import { Building2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { translations } from '../../translations';
@@ -14,6 +15,7 @@ export default function LoginPage() {
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
   const { login } = useAuthStore();
   const { language } = useLanguageStore();
+  const { isDark } = useThemeStore();
   const t = translations[language].auth.login;
 
   useEffect(() => {
@@ -50,7 +52,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-white to-primary-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-primary-50 via-white to-primary-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <div className="flex flex-col md:flex-row items-center justify-center gap-0 md:gap-0 bg-transparent">
         {/* Card Logo */}
         <div className="flex flex-col items-center justify-center bg-white dark:bg-gray-800 rounded-l-lg md:rounded-l-2xl md:rounded-r-none shadow-xl p-10 w-full md:w-[340px] h-[420px] relative z-10">
@@ -119,6 +121,16 @@ export default function LoginPage() {
           </p>
         </div>
       </div>
+
+      {/* Powered by Bolt badge */}
+      <div className="mt-8">
+        <img
+          src={isDark ? '/images/white_circle_360x360.png' : '/images/black_circle_360x360.png'}
+          alt="Powered by Bolt"
+          className="h-12 w-12 opacity-50 hover:opacity-100 transition-opacity duration-200"
+        />
+      </div>
+
       {/* Animación del gradiente */}
       <style>{`
         @keyframes gradient-move {
